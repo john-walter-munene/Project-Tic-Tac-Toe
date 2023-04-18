@@ -1,8 +1,22 @@
 // Gameboard 
-var Gameboard = (function() {
-    var gameBoard = []
+const Gameboard = (function() {
+    const board = ["", "", "", "", "", "", "", ""];
 
-    return {gameBoard};
+    const setField = (index, sign) => {
+        board[index] = sign;
+    };
+
+    const getField = (index) => {
+        return board[index];
+    };
+
+    const resetFields = () => {
+        for (let i=0; i<board.length; i++){
+            board[i] = "";
+        };
+    };
+
+    return {setField, getField, resetFields, board};
 })();
 
 // Game controller
@@ -11,6 +25,12 @@ var GameContoller = (function() {
 })();
 
 // Players
-const Players = () => {
-    return {};
+const Player = (sign) => {
+    this.sign = sign
+
+    const getSign = () =>{
+        return sign;
+    }
+
+    return { getSign };
 }
