@@ -71,19 +71,19 @@
         </section>
     </main>
 
-    < class="game-initilaizer">
-        <img src="" alt="tic tac toe logo">
-        <section class="game-initilaizer__player-picker">
-            <h3 class="game-initilaizer__heading">Pick Player 1's sign</h3>
-            <section class="game-initilaizer__sign-selector">
-                <label for="select-sign" class="game-initializer--hide-label">Select X sign</label>
+    <section class="game-initializer">
+        <img src="./assets/logo.svg" alt="tic tac toe logo">
+        <section class="game-initializer__player-picker">
+            <h3 class="game-initializer__heading">Pick Player 1's Sign</h3>
+            <section class="game-initializer__sign-selector">
+                <label for="select-sign" class="game-initializer--hide-label">Select x sign</label>
                 <input type="radio" name="select-sign" id="sign-x" class="game-initializer__select-x">
-                <label for="sign-0" class="game-initializer--hide-label">Select 0 sign</label>
-                <input type="radio" name="select-sign" id="sign-0" class="game-initializer__select-0" checked>
-                <section class="game-initilaizer__sign game-initializer__sign-x"></section>
-                <section class="game-initilaizer__sign game-initializer__sign-0"></section>
+                <label for="sign-o" class="game-initializer--hide-label">Select p sign</label>
+                <input type="radio" checked name="select-sign" id="sign-o" class="game-initializer__select-o">
+                <section class="game-initializer__sign game-initializer__sign--x"></section>
+                <section class="game-initializer__sign game-initializer__sign--o"></section>
             </section>
-            <p class="game-initializer__notice"><em>Note:</em> X goes first</p>
+            <p class="game-initializer__notice">Remember: X Goes First</p>
         </section>
         <div role="button" class="game-initializer__action-btn">Start Game</div>
     </section>
@@ -96,7 +96,7 @@
         </h2>
         <section class="result-conveyer__action-section">
             <div role="button" class="result-conveyer__reset-btn">Quit</div>
-            <div role="button" class="result-conveyer__reset-btn">Next Round</div>
+            <div role="button" class="result-conveyer__continue-btn">Next Round</div>
         </section>
     </section>
 </body>
