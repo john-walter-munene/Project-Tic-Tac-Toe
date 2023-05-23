@@ -1,38 +1,35 @@
 "use strict";
 
-// Player uses Factory Function
-const player = (sign) => {
+const Player = (sign) => {
     this.sign = sign;
 
-    const getSign = ()=> {
+    const getSign =()=>{
         return sign;
-    };
+    }
 
-    return {getSign};
-};
+    return { getSign };
+}
 
-// Game Board
 const logicalGameBoard = (()=>{
-    const board = ["", "", "", "", "", "", "", "", ""];
+    const board = ["", "", "", "","", "", "", "", ""];
 
     const setField = (index, sign) => {
-        board[index]=sign;
+        board[index] = sign;
     };
 
     const getField = (index) => {
         return board[index];
     };
 
-    const resetFields = ()=> {
-        for (let i=0; i<board.length; i++) {
+    const resetFields = () =>{
+        for(let i=0; i<board.length; i++){
             board[i] = "";
-        };
+        }
     };
 
-    return {setField, getField, resetFields, board}
+    return { setField, getField, resetFields, board };
 })();
 
-// Display Handler
 const displayController = (()=>{
     const gameInitializerButton = document.querySelector('.game-initializer__action-btn'),
           gameConsole = document.querySelector('main'),
@@ -42,50 +39,51 @@ const displayController = (()=>{
           fieldElements = document.querySelectorAll('.game-board__field'),
           fieldElementsStates = document.querySelectorAll('.game-board__state'),
           restartBtn = document.querySelector('.main__restart-btn'),
-          scoreDisplayerEelements = document.querySelector('.main__score-displayer');
+          scoreDisplayerElements = document.querySelectorAll('.main__score-displayer');
 
     let playerXScore = 0, playerOScore = 0, tiedMatches = 0, tie = false;
 
     gameInitializerButton.addEventListener('click', (e)=>{
-        activateBtn(e.target);
+        activateBtn(e.target)
 
         setTimeout(()=>{
             setActiveStates()
-            e.target.parentElement.ClassList.add('disabled');
-            gameConsole.ClassList.remove('disabled');
+            e.target.parentElement.classList.add('disabled');
+            gameConsole.classList.remove('disabled');
         }, 500);
-    });
+    })
 
-    const activateBtn = (element) => {
+    const activateBtn = (element) =>{
         function removeTransition(e){
-            if (e.propertyName !== 'transform') return;
-            e.target.ClassList.remove('clicked');
-        };
-        element.ClassList.add('clicked');
+            if(e.propertyName !== 'transform') return;
+            e.target.classList.remove('clicked');     
+        }
+        element.classList.add('clicked');
         element.addEventListener('transitionend', removeTransition);
-    };
+    }
 
-    fieldElementsStates.forEach((field)=>{
+
+    fieldElementsStates.forEach((field)=>
         field.addEventListener('click', (e)=>{
             let fieldState = e.target.dataset.fieldState;
             if (gameController.getIsOver() || (fieldState == 'set-x' || fieldState == 'set-o')) return;
             gameController.playRound(parseInt(e.target.parentElement.dataset.index));
-            updateGameBoard();
-            activateBtn(e.target.parentElement);
-        });
-    });
+            updateGameboard();
+            activateBtn(e.target.parentElement)
+        })
+    );
 
     restartBtn.addEventListener('click', (e)=>{
-        restartGame();
-        activateBtn(e.target);
-    });
+        restartGame()
+        activateBtn(e.target)
+    })
 
     nextRoundBtn.addEventListener('click', (e)=>{
-        activateBtn(e.target);
+        activateBtn(e.target)
         setTimeout(()=>{
-            e.target.parentElement.parentElement.ClassList.add('disabled')
-            tie=false
-            restartGame();
+            e.target.parentElement.parentElement.classList.add('disabled')
+            tie=false;
+            restartGame()
         }, 500)
     })
 
@@ -93,56 +91,57 @@ const displayController = (()=>{
         activateBtn(e.target)
         playerXScore = 0;
         playerOScore = 0;
-        tiedMatches =0;
-        tie = false
-        resultDisplayer.ClassList.remove('disabled');
+        tiedMatches = 0;
+        tie = false;
+        resultDisplayer.classList.remove('disabled');
 
         updateScoreBoard('reset')
         setTimeout(()=>{
             restartGame();
-            e.target.parentElement.parentElement.add('disabled');
-            gameConsole.classList.add('disbaled');
+            e.target.parentElement.parentElement.classList.add('disabled');
+            gameConsole.classList.add('disabled');
             gameInitializerButton.parentElement.classList.remove('disabled');
-        }, 500);
-    });
+        }, 500)
+    })
 
-    const updateGameBoard = () => {
-        for (let i=0; i<fieldElementsStates.length; i++) {
-            fieldElementsStates[i].dataset.fieldState = `set-${logicalGameBoard.getField[i]}`;
-            setActiveStates();
+    const updateGameboard = () => {
+        for(let i=0; i<fieldElementsStates.length;i++){
+            fieldElementsStates[i].dataset.fieldState = `set-${logicalGameBoard.getField(i)}`
+            setActiveStates()
         }
     };
 
     const updateScoreBoard = (scoreEntity) => {
-        if (scoreEntity === 'x') {scoreDisplayerEelements[0].textContext = ++playerXScore}
-        else if (scoreEntity === 'o') {scoreDisplayerEelements[2].textContext == ++playerOScore}
-        else if (scoreEntity === 'reset') {scoreDisplayerEelements.forEach((el)=>el.textContext=0)}
-        else {scoreDisplayerEelements[1].textContext = ++tiedMatches; tie=true}
+        if(scoreEntity === 'x'){scoreDisplayerElements[0].textContent = ++playerXScore}
+        else if(scoreEntity === 'o'){scoreDisplayerElements[2].textContent = ++playerOScore; }
+        else if(scoreEntity === 'reset'){scoreDisplayerElements.forEach((el)=>el.textContent=0)}
+        else { scoreDisplayerElements[1].textContent = ++tiedMatches; tie=true }
 
         if(scoreEntity === 'reset') return;
 
         setTimeout(()=>{
             resultDisplayer.classList.remove('disabled')
-            displayResultsConveyer();
-        }, 1000)
-    };
+            displayResultConveyer();
+        }, 1000);
+    }
 
-    const setActiveStates = ()=>{
+    const setActiveStates = () => {
         document.querySelectorAll('[data-field-turn]').forEach((el)=>el.dataset.fieldTurn = `turn-${gameController.getCurrentPlayerSign()}`)
 
-        if (tie === true) {
+        if(tie === true){
             document.querySelectorAll('[data-field-turn]')[10].dataset.fieldTurn='';
             document.querySelectorAll('[data-field-turn]')[10].children[1].textContent = 'It\'s a Tie!';
             resultDisplayer.querySelector('p').classList.add('disabled')
             resultDisplayer.querySelector('section:nth-child(2)').classList.add('greyish-text')
-        } else {
+        }
+        else {
             document.querySelectorAll('[data-field-turn]')[10].children[1].textContent = 'Takes the round'
             resultDisplayer.querySelector('p').classList.remove('disabled')
             resultDisplayer.querySelector('section:nth-child(2)').classList.remove('greyish-text')
         }
-    };
+    }
 
-    const setBackgroundColor = (boardElements) => {
+    const setBoardBackgroundColor = (boardElements) => {
         let signArray = [];
         boardElements.forEach((el)=>signArray.push(logicalGameBoard.getField(el)))
         if(signArray.includes('x') === true){
@@ -152,24 +151,25 @@ const displayController = (()=>{
             boardElements.forEach((el)=>fieldElements[el].classList.add('game-board--field-won-o')) 
             updateScoreBoard('o')
         }
-    };
+    }
 
     const restartGame = () => {
         logicalGameBoard.resetFields();
         gameController.resetGame();
-        removeBackgroundColor(fieldElements)
-        updateGameBoard()
-    };
-
-    const removeBackgroundColor = (boardElements) => {
-        boardElements.forEach((el)=>el.ClassName = 'game-board__field')
+        removeBoardBackgroundColor(fieldElements)
+        updateGameboard();
     }
 
-    return {setBackgroundColor, updateScoreBoard}
+    const removeBoardBackgroundColor = (boardElements) => {
+        boardElements.forEach((el)=>el.className = 'game-board__field')
+    }
+
+    return { setBoardBackgroundColor, updateScoreBoard };
 })();
 
 const gameController = (()=>{
-    const playerX = player("x"), playerO = player("o");
+    const playerX = Player("x");
+    const playerO = Player("o");
     let round = 1,
         isOver = false,
         result = false;
@@ -177,21 +177,21 @@ const gameController = (()=>{
     const playRound = (fieldIndex) => {
         logicalGameBoard.setField(fieldIndex, getCurrentPlayerSign());
         checkWinner(fieldIndex)
+    
+        if(result){
+            isOver = true;
+            return;
+        }
+        if (round === 9){
+            displayController.updateScoreBoard('tie');
+            isOver = true;
+            return;
+        }
+        round++;
     };
 
-    if (result) {
-        isOver = true;
-        return;
-    }
-    if (round === 9) {
-        displayController.updateScoreBoard('tie');
-        isOver = true;
-        return;
-    }
-    round++;
-
-    const getCurrentPlayerSign = () =>{
-        return round %2 === 1 ? playerX.getSign() : playerO.getSign();
+    const getCurrentPlayerSign = () => {
+        return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
     };
 
     const checkWinner = (fieldIndex) => {
@@ -231,5 +231,4 @@ const gameController = (()=>{
     }
 
     return { playRound, resetGame, getIsOver, getCurrentPlayerSign }
-       
 })();

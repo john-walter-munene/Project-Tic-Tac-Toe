@@ -7,51 +7,54 @@
     <meta name="theme-color" content="#1A2B33">
     <meta name="msapplication-navbutton-color" content="#1A2B33">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-    <title>Tic Tac Toe</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A2B33">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="manifest" href="./assets/site.webmanifest">  
+    <link rel="stylesheet" href="./styles.css">
+    <title>Tic Tac Toa</title>
 </head>
 <body>
     <header>
-        <h1>Tic Tac Toe</h1>
+        <h1>Tic Tac Toa</h1>
     </header>
+
     <main class="disabled">
         <section class="main__upper-section">
-            <img>
-            <h2 data-field-turn="" class="main-player-display">
-            <section class="main__get-turn-sign"></section>Turn
+            <img src="./assets/logo.svg" alt="x-o game logo">
+            <h2 data-field-turn="" class="main__player-turn-display">
+                <section class="main__get-turn-sign"></section>Turn
             </h2>
             <div role="button" class="main__restart-btn"></div>
         </section>
-
-        <section class="main-game-board">
+        <section class="main__game-board">
             <div class="game-board__field" data-index="0" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="1" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="2" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="3" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="4" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="5" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="6" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
             <div class="game-board__field" data-index="7" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
-            <div class="game-board__field" data-index="0" role="button">
-                <div class="game-board__state" data-field-state="" data-field-turn=""></div>
+            <div class="game-board__field" data-index="8" role="button">
+                <div class="game-board__state" data-field-state='' data-field-turn=""></div>
             </div>
         </section>
 
@@ -65,7 +68,7 @@
                 <h2 class="main__score-displayer">0</h2>
             </section>
             <section class="main__summary">
-                <p class="main__display-name">Player 0</p>
+                <p class="main__display-name">Player O</p>
                 <h2 class="main__score-displayer">0</h2>
             </section>
         </section>
@@ -89,15 +92,17 @@
     </section>
 
     <section class="result-conveyer disabled">
-        <p class="result-conveyer__result">Congrats My G</p>
+        <p class="result-conveyer__result">Congratulations !</p>
         <h2 data-field-turn="" class="result-conveyer__brief">
             <section class="result-conveyer__get-winner-sign"></section>
-            <section>Takes the round!</section>
+            <section>Takes the Round</section>
         </h2>
         <section class="result-conveyer__action-section">
             <div role="button" class="result-conveyer__reset-btn">Quit</div>
             <div role="button" class="result-conveyer__continue-btn">Next Round</div>
         </section>
     </section>
+    
+    <script src="./script.js" defer></script>
 </body>
 </html>
